@@ -1,11 +1,14 @@
 <script>
 	import Footer from '$lib/Components/Footer.svelte';
 	import Header from '$lib/Components/Header.svelte';
+	import { pb, currentUser } from '$lib/Services/PocketbaseWrapper';
 	export let showBottom = false;
 </script>
 
 <div class="app">
-	<!-- <Header /> -->
+	{#if $currentUser}
+		<Header />
+	{/if}
 
 	<div class="absolute left-0 top-0 right-0 ws-gradient ws-gradient-top -z-50 w-full" />
 	<!--maybe this should NOT live in the header-->

@@ -1,1 +1,1 @@
-<span class="text-[#2171B5]">#ClimateFriday</span>
+<span class="text-primary-500">#ClimateFriday</span>
