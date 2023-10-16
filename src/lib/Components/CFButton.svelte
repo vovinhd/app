@@ -29,7 +29,11 @@
 		: secondary
 		? 'bg-secondary-200 hover:bg-secondary-300 text-secondary-900'
 		: 'bg-primary-200 hover:bg-primary-300 text-primary-900'}
-    {disabled ? '' : 'active:scale-[0.98] active:translate-y-0.5'}
+    {disabled
+		? ''
+		: transparent
+		? 'active:text-opacity-80'
+		: 'active:text-opacity-80 active:scale-[0.98] active:translate-y-0.5'}
     "
 >
 	{#if share}
