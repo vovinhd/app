@@ -1,35 +1,46 @@
-<script>
-	import { page } from '$app/stores';
-	import warmingstripes from '$lib/Images/warming_stripes.png';
+<script lang="ts">
+	import { menuOpen } from '$lib/Services/MenuState';
+	import { currentUser } from '$lib/Services/PocketbaseWrapper';
+	import { clamp, mapToRange } from '$lib/Util';
+	import MenuButton from './MenuButton.svelte';
+	import SideNavigationMenu from './SideNavigationMenu.svelte';
+	import StreakCounter from './StreakCounter.svelte';
+	import WarmingstripesBackground from './WarmingstripesBackground.svelte';
+
+	export let bgShadowOffset = 30.0;
+	export let bgOpacityStartOffset = 20.0;
+	export let bgOpacityFullOffest = 40.0;
+
+	let bgOpacity = 0.0;
+	let bgCastShadow = false;
+	let y = 0;
+
+	$: bgOpacity = clamp(mapToRange(y, bgOpacityStartOffset, bgOpacityFullOffest));
+	$: bgCastShadow = y > bgShadowOffset;
 </script>
 
-<header>
-	<button aria-controls="primary-navigation" class="w-8 h-8 px-6 py-4 absolute top-0 left-0">
-		<svg class="w-12 h-12" viewBox="0 0 100 100">
-			<rect class="line top" width="70" height="10" x="15" y="25" rx="5" />
-			<rect class="line middle" width="70" height="10" x="15" y="45" rx="5" />
-			<rect class="line bottom" width="70" height="10" x="15" y="65" rx="5" />
-		</svg>
-	</button>
-	<nav />
+<header class="h-32">
+	<WarmingstripesBackground opacity={ 1- bgOpacity} />
+	<div
+		style="grid-template-columns: 5rem 1fr 10rem;"
+		class="grid grid-flow-col items-stretch fixed  z-20          
+		left-0 right-0 top-0 px-4 pt-5 pb-4 overflow-clip
+			{bgCastShadow || $menuOpen ? 'shadow-md' : ''} "
+	>
+		{#if $currentUser}
+			<MenuButton/>
+			<div/>
+			<StreakCounter /> 
+		{/if}
+		<WarmingstripesBackground opacity={1} />
+	</div>
+	<!-- <div class="h-24" /> -->
+	<SideNavigationMenu/>
 </header>
 
+<svelte:window bind:scrollY={y} />
+
 <style>
-	.line {
-		fill: #fff;
-		stroke: black;
-	}
-	header {
-		display: flex;
-		flex-direction: column;
-		justify-content: center;
-		align-items: center;
-	}
-
-	header a {
-		font-weight: bold;
-	}
-
 	@media (min-width: 480px) {
 		header {
 			padding: 12px 0;

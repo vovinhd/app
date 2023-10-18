@@ -20,13 +20,7 @@
 		var _resStreak = await pb.collection('streak_count').getOne($currentUser.id);
 		completions = _resParticipations.count;
 		streak = _resStreak.length;
-		console.log($currentUser, _resParticipations, _resStreak);
-
-		unsubscribe = await pb.collection('participations_count').subscribe($currentUser.id, function (e) {
-			console.log(e.action);
-			console.log(e.record);
-		});
-		console.log('unsubscribe', unsubscribe);
+		unsubscribe = await pb.collection('participations_count').subscribe($currentUser.id, update);
 	
 	});
 
@@ -40,9 +34,9 @@
 
 {#if currentUser}
 	<div
-		class="sc relative overflow-clip flex flex-row rounded-full border border-neutral-300 bg-neutral-50 px-2 py-1 text-lg"
+		class="sc shadow relative overflow-clip flex flex-row rounded-full border border-neutral-300 bg-neutral-50 px-2 py-1 text-lg w-40"
 	>
-		<div class="flex flex-row items-center text-accent-500 ml-2 mr-4 gap-0 z-20">
+		<div class="flex flex-row justify-between items-center text-accent-500 ml-2 mr-4 gap-0 z-20">
 			<svg
 				xmlns="http://www.w3.org/2000/svg"
 				width="26"
@@ -59,7 +53,7 @@
 			</svg>
 			<span class="text-neutral-900">{streak}</span>
 		</div>
-		<div class="flex flex-row items-center text-white ml-4 mr-3 gap-0.5 bg-primary-500 z-20">
+		<div class="flex flex-row  items-center justify-end text-white ml-6 mr-3 gap-0.5 bg-primary-500 z-20">
 			<svg
 				width="26"
 				height="24"
