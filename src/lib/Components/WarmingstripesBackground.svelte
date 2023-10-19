@@ -1,17 +1,36 @@
 <script lang="ts">
-    export let opacity = 1.0; 
+	import { mapToRange } from '$lib/Util';
+	import { onMount } from 'svelte';
+	export let adaptAngle = false;
+	export let opacity = 1.0;
+	export let angle = -12;
+
+	const aspectRationToAngle = (ratio: number) => {
+		angle = mapToRange(ratio, 0.5, 2.0, -12, -5);
+		console.log(ratio, angle);
+	};
+	onMount(() => {
+		if (adaptAngle) {
+			onresize = (_event) => {
+				if (!adaptAngle) return;
+				aspectRationToAngle(window.innerWidth / window.innerHeight);
+			};
+		}
+	});
 </script>
 
-<div style="--opacity: {opacity}" class="absolute left-0 top-0 right-0 ws-gradient ws-gradient-top -z-50 w-full" />
+<div
+	style="--opacity: {opacity}; --angle: {angle}deg"
+	class="absolute left-0 top-0 right-0 ws-gradient ws-gradient-top -z-50 w-full"
+/>
 
 <style lang="scss">
-    .ws-gradient {
-        opacity: var(--opacity, 1.0);
+	.ws-gradient {
+		opacity: var(--opacity, 1);
 		background-blend-mode: overlay;
 		background-size: 100%;
 		background-repeat: inherit;
 		--background-color: rgba(255, 255, 255, 1);
-		--angle: -12deg;
 		height: 20rem;
 	}
 	.ws-gradient-top {
@@ -28,4 +47,3 @@
 			);
 	}
 </style>
-
