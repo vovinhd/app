@@ -26,18 +26,9 @@
 
 <main class="flex flex-col gap-4">
 	<div>Teilnehmer:innen am letzten Freitag:<br /> 1220</div>
-
 	<div>Aus deinem PLZ-Gebiet waren es<br /> 243</div>
-
 	<FridayCountdown/>
-
 	<CfSectionHeading>Mitmachen</CfSectionHeading>
-
-
-
-			<ParticipateForm/>
-
-
-
+	<ParticipateForm/>
 	<BlogEmbed/>
 </main>

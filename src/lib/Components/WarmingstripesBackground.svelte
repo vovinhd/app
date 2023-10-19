@@ -7,8 +7,10 @@
 
 	const aspectRationToAngle = (ratio: number) => {
 		angle = mapToRange(ratio, 0.5, 2.0, -12, -5);
-		console.log(ratio, angle);
 	};
+
+	/* Do horrible things with the window aspect ratio to figure out if we should 
+	change the angle of the bg gradient to not hide the right hand side of the image */
 	onMount(() => {
 		if (adaptAngle) {
 			onresize = (_event) => {

@@ -1,5 +1,7 @@
 <script lang="ts">
-	let isModalOpen = false;
+	import { onMount } from "svelte";
+
+	export let isModalOpen = false;
 	let modalElement: HTMLElement;
 
 	const _updateModal = () => {
@@ -24,9 +26,11 @@
 		isModalOpen = !isModalOpen;
 		_updateModal();
 	};
+
+    onMount(() => _updateModal())
 </script>
 
-<div class="modal items-end" bind:this={modalElement}>
+<div open class="modal items-end" bind:this={modalElement}>
 	<div class="modal-box rounded-b-none grr  w-[91vw]">
 		<button class="fixed right-0 top-0 pt-2 px-2" on:click={hide}>
 			<svg class="h-11 w-11" viewBox="0 0 100 100">

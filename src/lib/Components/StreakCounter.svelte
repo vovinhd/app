@@ -1,35 +1,7 @@
 <script lang="ts">
-	import { currentUser, pb } from '$lib/Services/PocketbaseWrapper';
-	import { onDestroy, onMount } from 'svelte';
+	import { currentUser } from '$lib/Services/PocketbaseWrapper';
+	import { participationCount, streakCount } from '$lib/Services/UserState';
 
-	export let completions = 0;
-	export let streak = 0;
-
-	let unsubscribe: Function;
-
-	const update = ({ action, record }: any) => {
-		console.log('updated!', action);
-		console.log('updated!', record);
-	};
-
-	onMount(async () => {
-		if (!$currentUser) {
-			return;
-		}
-		var _resParticipations = await pb.collection('participations_count').getOne($currentUser.id);
-		var _resStreak = await pb.collection('streak_count').getOne($currentUser.id);
-		completions = _resParticipations.count;
-		streak = _resStreak.length;
-		unsubscribe = await pb.collection('participations_count').subscribe($currentUser.id, update);
-	
-	});
-
-	onDestroy(async () => {
-		if (unsubscribe != undefined) {
-			console.log('closing rtc!');
-			unsubscribe();
-		}
-	});
 </script>
 
 {#if currentUser}
@@ -51,7 +23,7 @@
 					fill="currentcolor"
 				/>
 			</svg>
-			<span class="text-neutral-900">{streak}</span>
+			<span class="text-neutral-900">{$streakCount}</span>
 		</div>
 		<div class="flex flex-row  items-center justify-end text-white ml-6 mr-3 gap-0.5 bg-primary-500 z-20">
 			<svg
@@ -66,7 +38,7 @@
 					fill="currentcolor"
 				/>
 			</svg>
-			<span>{completions}</span>
+			<span>{$participationCount}</span>
 		</div>
 	</div>
 {:else}

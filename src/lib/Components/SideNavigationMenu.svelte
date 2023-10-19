@@ -1,6 +1,6 @@
 <script lang="ts">
 	import { menuOpen } from '$lib/Services/MenuState';
-	import { cubicInOut } from 'svelte/easing';
+	import { cubicIn, cubicInOut, cubicOut } from 'svelte/easing';
 	import { fade, fly, slide } from 'svelte/transition';
 
 	const closeMenu = () => menuOpen.set(false);
@@ -9,12 +9,12 @@
 {#if $menuOpen}
 	<!-- svelte-ignore a11y-no-noninteractive-element-interactions -->
 	<div
-		class="fixed left-0 right-0 bottom-0 top-20 bg-gray-900 bg-opacity-0 z-10"
+		class="fixed left-0 right-0 bottom-0 top-[5.25rem] bg-gray-900 bg-opacity-0 z-10"
 		on:click={closeMenu}
 		on:keypress={closeMenu}
 		role="complementary"
 	>
-		<nav in:fly={{ x: -10, delay:75, duration:425, easing: cubicInOut }} out:fly={{ x: -10, duration: 425}} class="h-full bg-neutral-50 shadow w-fit">
+		<nav in:fly={{ x: -250, delay:75, duration:425, easing: cubicOut, opacity: 1 }} out:fly={{ x: -250, duration: 425, opacity: 1, easing: cubicIn}} class="h-full bg-neutral-50 shadow w-fit">
 			<ul>
 				<li class="text-2xl font-bold"><a href="/app/">Home</a></li>
 				<li class="text-2xl font-bold"><a href="/app/history">Verlauf</a></li>

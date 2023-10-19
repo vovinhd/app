@@ -25,6 +25,6 @@ setInterval(() => {
 }, timerAccuracy);
 
 export const FRIDAY = 5;
-export const START_TIME = 16;
+export const START_TIME = 0;
 export const timeToNextFriday = writable(getCountdownValue());
 export const dayOfWeek = writable(getDayOfWeek());
